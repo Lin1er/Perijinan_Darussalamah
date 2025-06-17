@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
   nodejs \
   libzip-dev \
   libpq-dev \
-  && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+  libicu-dev \
+  && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip intl
 
 # Install Composer
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
@@ -34,6 +35,7 @@ RUN npm install && npm run build
 # Set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Expose port 9000 and start php-fpm server
+# Expose FPM port
 EXPOSE 9000
+
 CMD ["php-fpm"]
