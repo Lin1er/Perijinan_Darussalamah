@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tanggal_telat')
                 ->nullable();
             $table->string('status')->default('pending'); // 'pending', 'approved', 'rejected'
-            $table->string('lampiran');
+            $table->string('lampiran')->nullable();
             $table->string('catatan')
                 ->nullable();
             $table->timestamps();

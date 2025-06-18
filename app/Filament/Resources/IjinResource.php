@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\IjinResource\Pages;
 use App\Models\Ijin;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -34,6 +35,17 @@ class IjinResource extends Resource
                 Forms\Components\Textarea::make('alasan')
                     ->label('Keterangan')
                     ->rows(3),
+                FileUpload::make('lampiran')
+                    ->label('Lampiran')
+                    ->disk('public')
+                    ->directory('ijins')
+                    ->preserveFilenames()
+                    ->enableDownload()
+                    ->enableOpen()
+                    ->visibility('public')
+                    ->acceptedFileTypes(['image/*', 'application/pdf'])
+                    ->maxSize(10240) // 10 MB
+                    ->required(),
             ]);
     }
 
